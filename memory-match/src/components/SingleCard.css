@@ -21,6 +21,7 @@
 }
 
 .card .back {
+    cursor: pointer;
     transition: all ease-in 0.2s;
     transition-delay: 0.2s;
 }

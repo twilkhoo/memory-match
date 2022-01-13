@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react'
 import SingleCard from './components/SingleCard'
+import TurnPara from './components/TurnPara';
 
 const cardImages = [
     {"src": "/img/helmet-1.png", matched: false},
@@ -18,7 +19,6 @@ function App() {
     const [choiceOne, setChoiceOne] = useState(null);
     const [choiceTwo, setChoiceTwo] = useState(null);
     const [disabled, setDisabled] = useState(false);
-    
 
     // shuffle cards
     const shuffleCards = () => {
@@ -79,8 +79,7 @@ function App() {
     return (
         <div className="App">
             <h1>Techstack Match</h1>
-            <button onClick={shuffleCards}>New Game</button>
-
+            <TurnPara turns={turns}/>
             <div className="card-grid">
                 {cards.map((card) => (
                     <SingleCard 
@@ -92,7 +91,8 @@ function App() {
                     />
                 ))}
             </div>
-            <p>Turns: {turns}</p>
+            <br/>
+            <button onClick={shuffleCards}>Restart</button>
         </div>
     );
 }
