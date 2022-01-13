@@ -4,12 +4,14 @@ import SingleCard from './components/SingleCard'
 import TurnPara from './components/TurnPara';
 
 const cardImages = [
-    {"src": "/img/helmet-1.png", matched: false},
-    {"src": "/img/potion-1.png", matched: false},
-    {"src": "/img/ring-1.png", matched: false},
-    {"src": "/img/scroll-1.png", matched: false},
-    {"src": "/img/shield-1.png", matched: false},
-    {"src": "/img/sword-1.png", matched: false}
+    {"src": "/img/react-brands.png", matched: false},
+    {"src": "/img/angular-brands.png", matched: false},
+    {"src": "/img/vuejs-brands.png", matched: false},
+    {"src": "/img/node-js-brands.png", matched: false},
+    {"src": "/img/unity-brands.png", matched: false},
+    {"src": "/img/php-brands.png", matched: false},
+    {"src": "/img/github-brands.png", matched: false},
+    {"src": "/img/aws-brands.png", matched: false}
 ]
 
 function App() {

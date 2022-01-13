@@ -27,6 +27,11 @@ button:hover {
     grid-gap: 20px
 }
 
+h1 {
+    font-size: 2em;
+}
+
 p {
     font-family: Raleway;
+    font-size: 0.75em;
 }
