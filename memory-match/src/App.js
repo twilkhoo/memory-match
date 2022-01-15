@@ -1,7 +1,8 @@
 import './App.css';
 import { useEffect, useState } from 'react'
 import SingleCard from './components/SingleCard'
-import TurnPara from './components/TurnPara';
+import TurnPara from './components/TurnPara'
+import Modal from './components/Modal';
 
 const cardImages = [
     {"src": "/img/react-brands.png", matched: false},
@@ -16,6 +17,7 @@ const cardImages = [
 
 function App() {
 
+    const [showModal, setShowModal] = useState(false);
     const [cards, setCards] = useState ([]);
     const [turns, setTurns] = useState(0);
     const [choiceOne, setChoiceOne] = useState(null);
@@ -80,6 +82,12 @@ function App() {
 
     return (
         <div className="App">
+
+            {showModal && 
+                (<Modal shuffleCards={shuffleCards}>
+                    <p>Test</p>
+                </Modal>)}
+
             <h1>Techstack Match</h1>
             <TurnPara turns={turns}/>
             <div className="card-grid">
@@ -95,6 +103,7 @@ function App() {
             </div>
             <br/>
             <button onClick={shuffleCards}>Restart</button>
+            <button onClick={() => setShowModal(true)}>Restart</button>
         </div>
     );
 }
