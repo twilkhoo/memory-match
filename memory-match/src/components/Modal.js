@@ -3,16 +3,18 @@ import './Modal.css'
 import ReactDOM from 'react-dom'
 import './Modal.css'
 
-export default function Modal({ children, shuffleCards }) {
+export default function Modal({ children, winOrPhp }) {
     return ReactDOM.createPortal((
-        <div className="modal-backdrop">
-            <div className="modal" style={{
-                border: "4px solid", 
-                borderColor: "#555555",
-                textAlign: "center"
-            }}>
+        <div className="modal-backdrop" style={{
+            position: "fixed",
+            top: "0",
+            left: "0",
+            width: "100%",
+            height: "100%",
+            background: winOrPhp === "win" ? "rgba(0,255,0,0.5)" : "rgba(255,0,0,0.5)"
+        }}>
+            <div className="modal">
                 {children}
-                <button onClick={shuffleCards}>Restart</button>
             </div>
         </div>
     ), document.body)

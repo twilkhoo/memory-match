@@ -5,19 +5,18 @@
 
 button {
     background: none;
-    border: 2px solid rgb(25, 25, 25);
+    border: 2px solid rgb(226, 226, 226);
     padding: 6px 12px;
     border-radius: 4px;
-    color: rgb(25, 25, 25);
-    font-weight: bold;
+    color: rgb(228, 228, 228);
     cursor: pointer;
     font-size: 1em;
-    transition: 1s ease-in-out;
+    font-family: Raleway;
+    transition: 0.5s ease-in-out;
 }
 
 button:hover {
-    background: #a5a5a5;
-    color: rgb(25, 25, 25);;
+    background: #3b3b3b;
 }
 
 .card-grid{

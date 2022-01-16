@@ -17,15 +17,27 @@ const cardImages = [
 
 function App() {
 
-    const [showModal, setShowModal] = useState(false);
+    const [showWinModal, setShowWinModal] = useState(false);
+    const [showPhpModal, setShowPhpModal] = useState(false);
+    const [initTurn, setInitTurn] = useState(true);
     const [cards, setCards] = useState ([]);
     const [turns, setTurns] = useState(0);
     const [choiceOne, setChoiceOne] = useState(null);
     const [choiceTwo, setChoiceTwo] = useState(null);
     const [disabled, setDisabled] = useState(false);
+    const [matchCount, setMatchCount] = useState(0);
+
+    // start a new game automatically
+    useEffect(() => {
+        shuffleCards()
+    }, [])
 
     // shuffle cards
     const shuffleCards = () => {
+        setShowWinModal(false);
+        setShowPhpModal(false);
+        setInitTurn(true);
+        setMatchCount(0);
         const shuffledCards = [...cardImages, ...cardImages]
             .sort(() => Math.random() - 0.5)
             .map((card) => ({ ...card, id: Math.random() }));
@@ -34,38 +46,43 @@ function App() {
         setTurns(0)
     }
 
-    //handle a choice
+    //handle a card choice
     const handleChoice = (card) => {
-        choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
-        
+        choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+        if(card.src === "/img/php-brands.png" && initTurn) {
+            setShowPhpModal(true);
+        }
+        else {
+            setInitTurn(false);
+        }
     }
 
     // compare the two cards, note that useEffect will fire every time anything in the dependency array changes
     useEffect(() => {
-
         if (choiceOne && choiceTwo) {
             setDisabled(true);
-            if (choiceOne.src === choiceTwo.src) {
-
+            if (choiceOne.src === choiceTwo.src) { // found a match
+                setMatchCount(matchCount + 1);
                 setCards(prevCards => {
                     return prevCards.map((card) => {
-                        if (card.src === choiceOne.src) {
+                        if (card.src === choiceOne.src) {              
                             return {...card, matched: true}
                         } else {
                             return card
                         }
                     })
                 })
-
                 resetTurn()
+                // determine if you've won
+                console.log(matchCount);
+                if (matchCount === 7) {
+                    setShowWinModal(true);
+                }
             } else {
                 setTimeout(() => resetTurn(), 1000)
             }
-            
         }
     }, [choiceOne, choiceTwo])
-
-    console.log(cards)
 
     // reset the cards
     const resetTurn = () => {
@@ -75,18 +92,20 @@ function App() {
         setDisabled(false)
     }
 
-    // start a new game automatically
-    useEffect(() => {
-        shuffleCards()
-    }, [])
-
     return (
         <div className="App">
 
-            {showModal && 
-                (<Modal shuffleCards={shuffleCards}>
-                    <p>Test</p>
+            {showWinModal && 
+                (<Modal shuffleCards={shuffleCards} winOrPhp={"win"}>
+                    <p>You did it in {turns} tries!</p>
+                    <button onClick={shuffleCards}>Play again?</button>
                 </Modal>)}
+
+            {showPhpModal && 
+            (<Modal shuffleCards={shuffleCards} winOrPhp={"php"}>
+                <p>Oh no! You clicked php first and everything stopped responding.</p>
+                <button onClick={shuffleCards}>Play again?</button>
+            </Modal>)}
 
             <h1>Techstack Match</h1>
             <TurnPara turns={turns}/>
@@ -103,7 +122,6 @@ function App() {
             </div>
             <br/>
             <button onClick={shuffleCards}>Restart</button>
-            <button onClick={() => setShowModal(true)}>Restart</button>
         </div>
     );
 }
