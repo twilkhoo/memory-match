@@ -82,7 +82,7 @@ function App() {
                 setTimeout(() => resetTurn(), 1000)
             }
         }
-    }, [choiceOne, choiceTwo])
+    }, [choiceOne, choiceTwo, matchCount])
 
     // reset the cards
     const resetTurn = () => {
